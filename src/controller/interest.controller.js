@@ -49,8 +49,8 @@ const addInterest = catchAsync(async (req, res) => {
     profile.InterestedIn &&
     profile.age &&
     profile.minAge &&
-    profile.maxAge &&
-    profile.location?.coordinates?.length === 2 
+    profile.maxAge 
+
   );
 
   profile.isDiscoverable = isProfileComplete;

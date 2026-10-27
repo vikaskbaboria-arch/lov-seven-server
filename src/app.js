@@ -1,6 +1,7 @@
 import express from "express";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
+
 import cookieParser from "cookie-parser";
 import hpp from "hpp";
 import cors from "cors"
@@ -10,6 +11,7 @@ import ProfileRouter from "./routes/profile.route.js"
 import LikeRouter  from "./routes/like.route.js"
 import MatchRouter from "./routes/match.route.js"
 import InterestRouter from "./routes/interest.route.js"
+import MessageRouter from "./routes/message.route.js"
 const app = express();
 
 const limiter = rateLimit({
@@ -51,7 +53,7 @@ app.use('/api/v1/like',LikeRouter)
 app.use('/api/v1/matches',MatchRouter)
 app.use('/api/v1/interset',InterestRouter)
 app.use('/api/v1/dicovery',DiscoveryRouter)
-
+app.use('/api/v1/message',MessageRouter)
 app.use((req, res) => {
   res.status(404).json({
     status: "error",

@@ -7,7 +7,7 @@ import { AppError } from "../middleware/error.middleware.js";
 const regsiterUser = catchAsync(async (req, res) => {
   const { name, email, password } = req.body;
   if (!name || !email || !password) {
-    throw new AppError("password and email as well as name is required", 401);
+    throw new AppError("password and email as well as name is required", 400);
   }
   const existingUser = await User.findOne({ email: email.toLowerCase() });
   if (existingUser) {

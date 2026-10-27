@@ -3,7 +3,7 @@ import { catchAsync } from "../middleware/error.middleware.js";
 import { User } from "../models/user.model.js";
 import { AppError } from "../middleware/error.middleware.js";
 import { isValidObjectId } from "mongoose";
-const updateProfile = catchAsync(async (req, res) => {
+const craeteProfile = catchAsync(async (req, res) => {
   const userId = req.user._id;
   const user = await User.findById(userId);
   if (!userId || !user) {
@@ -113,4 +113,4 @@ const getCurrentUserProfile = catchAsync(async (req, res) => {
     },
   });
 });
-export { updateProfile, getProfileById ,getCurrentUserProfile};
+export { craeteProfile, getProfileById ,getCurrentUserProfile};
