@@ -64,7 +64,7 @@ const craeteProfile = catchAsync(async (req, res) => {
     profile.location?.coordinates?.length === 2 
   );
 
-  profile.isDiscoverable = isProfileComplete;
+  profile.isDiscoverable = true;
   await profile.save();
  
   return res.status(200).json({

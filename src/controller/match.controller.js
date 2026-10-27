@@ -5,7 +5,7 @@ import { Profile } from "../models/profile.model.js";
 import { isValidObjectId } from "mongoose";
 
 const unMatch = catchAsync(async (req, res) => {
-  const userId = req.user._d;
+  const userId = req.user._id;
   const { toUser } = req.body;
   if (!toUser || !isValidObjectId(toUser)) {
     throw new AppError("Not a valid Info", 400);

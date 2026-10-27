@@ -5,6 +5,6 @@ const router = express.Router();
 
 router.route('/sendMessage').post(isAutheticated,sendMessage);
 
-router.route('/getChat:convId').get(isAutheticated,getConversation)
+router.route('/getChat/:convId').get(isAutheticated,getConversation)
 
 export default router

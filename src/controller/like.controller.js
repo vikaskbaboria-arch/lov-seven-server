@@ -26,7 +26,7 @@ const CreateLike = catchAsync(async (req, res) => {
 
 const getUserLikes = catchAsync(async (req, res) => {
   const UserId = req.user._id;
-  const myProfile = await Profile.findOne({ userID: UserId });
+  const myProfile = await Profile.findOne({ userId: UserId });
   const myProfileObjectId = new mongoose.Types.ObjectId(myProfile._id);
  const likes = await Like.aggregate([
     // Match likes sent by the current user

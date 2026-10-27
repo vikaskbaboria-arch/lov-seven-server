@@ -19,41 +19,8 @@ const getFeed = async (userId, page, limit) => {
   console.log(exclusionList)
 
 //iscovery.service.js (Phase 2)
-  const feed = await Profile.aggregate([
-    // 1. The Hard Filters (Location, Age, Gender, Exclusion List)
-    {
-      $geoNear: {
-        near: { type: "Point", coordinates: myProfile.location.coordinates },
-        distanceField: "distance",
-        maxDistance: maxDistanceInMeters,
-        query: {
-          _id: { $nin: exclusionList },
-          isDiscoverable: true,
-          gender: myProfile.InterestedIn,
-          InterestedIn: myProfile.gender,
-          age: { $gte: myProfile.minAge, $lte: myProfile.maxAge },
-        },
-      },
-    },
-    // 2. The Scoring System (Calculate shared interests)
-    {
-      $addFields: {
-        sharedInterests: {
-          $setIntersection: ["$interests", myProfile.interests],
-        },
-      },
-    },
-    {
-      $addFields: {
-        matchScore: { $size: { $ifNull: ["$sharedInterests", []] } }, // Counts matching tags
-      },
-    },
-    // 3. Sort by highest match score, then by closest distance
-    { $sort: { matchScore: -1, distance: 1 } },
-    // 4. Pagination
-    { $skip: (page - 1) * limit },
-    { $limit: parseInt(limit) },
-  ]);
+  const feed = await Profile.find();
+  console.log("feed",feed)
   if(!feed){
     throw new AppError("no feed try again after some time",500)
   }

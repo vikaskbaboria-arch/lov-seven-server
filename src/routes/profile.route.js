@@ -4,7 +4,7 @@ import { isAutheticated } from "../middleware/auth.middleware.js";
 
 const router = express.Router();
 
-router.route('/createProfile').post(isAutheticated,craeteProfile);
+router.route('/updateProfile').post(isAutheticated,craeteProfile);
 router.route('/user/:profileId').get(isAutheticated,getProfileById)
 router.route('/').get(isAutheticated,getCurrentUserProfile)
 

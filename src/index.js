@@ -5,7 +5,8 @@ import connectDb from "./db/index.js"
 import { initializwSocketServer } from "./services/socket.service.js";
 const httpServer = createServer(app)
 
-initializwSocketServer(httpServer)
+const io =initializwSocketServer(httpServer)
+app.set("io", io);
 dotenv.config()
 
 

@@ -14,7 +14,7 @@ const sendMessage = catchAsync(async (req, res) => {
     if (!userId) {
         throw new AppError("First login please", 401);
     }
-    const profile = await Profile.find({ userId });
+    const profile = await Profile.findOne({ userId });
     const match = await Match.findOne({
         _id: conversationId,
         userId: profile._id,
@@ -30,6 +30,18 @@ const sendMessage = catchAsync(async (req, res) => {
     if (!createMessage) {
         throw new AppError("Message not created", 500);
     }
+//       const io = getIO();
+//   if (io) {
+//     io.to(`conversation:${conversationId}`).emit("message:received", populatedMessage);
+//   }
+   const io = req.app.get('io');
+    if (io) {
+    let recipients = io.to(`conversation:${conversationId}`);
+    match.userId.forEach((memberId) => {
+      recipients = recipients.to(`user:${memberId}`);
+    });
+    recipients.emit("message:new", createMessage.toObject());
+  }
     return res.status(200).json({
         data: createMessage,
         message: "message sended succesfully",
@@ -38,11 +50,11 @@ const sendMessage = catchAsync(async (req, res) => {
 
 const getConversation = catchAsync(async (req, res) => {
     const userId = req.user._id;
-    const convId = req.params;
+    const {convId} = req.params;
     if (!userId) {
         throw new AppError("First login please", 401);
     }
-    const profile = await Profile.find({ userId });
+    const profile = await Profile.findOne({ userId });
     const match = await Match.findOne({
         _id: convId,
         userId: profile._id,
