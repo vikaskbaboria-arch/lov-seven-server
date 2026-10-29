@@ -35,7 +35,7 @@ const sendMessage = catchAsync(async (req, res) => {
 //     io.to(`conversation:${conversationId}`).emit("message:received", populatedMessage);
 //   }
    const io = req.app.get('io');
-    if (io) {
+    if (io) { 
     let recipients = io.to(`conversation:${conversationId}`);
     match.userId.forEach((memberId) => {
       recipients = recipients.to(`user:${memberId}`);

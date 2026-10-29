@@ -1,7 +1,6 @@
 import { Like } from "../models/like.model.js";
 import { AppError, catchAsync } from "../middleware/error.middleware.js";
 import { likeORPass } from "../services/like.service.js";
-import { User } from "../models/user.model.js";
 import { Profile } from "../models/profile.model.js";
 import mongoose from "mongoose";
 const CreateLike = catchAsync(async (req, res) => {
