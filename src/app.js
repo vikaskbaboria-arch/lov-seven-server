@@ -12,6 +12,7 @@ import LikeRouter  from "./routes/like.route.js"
 import MatchRouter from "./routes/match.route.js"
 import InterestRouter from "./routes/interest.route.js"
 import MessageRouter from "./routes/message.route.js"
+import ReportRouter from "./routes/report.route.js"
 const app = express();
 
 const limiter = rateLimit({
@@ -54,6 +55,7 @@ app.use('/api/v1/matches',MatchRouter)
 app.use('/api/v1/interset',InterestRouter)
 app.use('/api/v1/dicovery',DiscoveryRouter)
 app.use('/api/v1/message',MessageRouter)
+app.use('/api/v1/report',ReportRouter)
 app.use((req, res) => {
   res.status(404).json({
     status: "error",

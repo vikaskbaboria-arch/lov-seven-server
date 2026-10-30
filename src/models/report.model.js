@@ -4,13 +4,13 @@ const reportSchema = new mongoose.Schema(
   {
     reportedBy: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: "Profile",
       required: true,
     },
 
     reportedUser: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: "Profile",
       required: true,
     },
 
