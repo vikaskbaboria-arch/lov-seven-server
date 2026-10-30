@@ -18,7 +18,7 @@ const getFeed = async (userId, page, limit) => {
 ];
 
 
-//iscovery.service.js (Phase 2)
+
 console.log("myProfile",myProfile.InterestedIn)
   const feed = await Profile.aggregate([
     {

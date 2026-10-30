@@ -1,14 +1,11 @@
 import { Profile } from "../models/profile.model.js";
 import { catchAsync } from "../middleware/error.middleware.js";
 import { User } from "../models/user.model.js";
+import { syncProfile } from "../services/search/profile_elastic.js";
 import { AppError } from "../middleware/error.middleware.js";
 import { isValidObjectId } from "mongoose";
 const craeteProfile = catchAsync(async (req, res) => {
-  const userId = req.user._id;
-  const user = await User.findById(userId);
-  if (!userId || !user) {
-    throw new AppError("please login", 401);
-  }
+  const profileId = req.profile._id;
   const {
     displayName,
     bio,
@@ -21,7 +18,7 @@ const craeteProfile = catchAsync(async (req, res) => {
     minAge,
     maxAge
   } = req.body;
-  const profile = await Profile.findOne({ userId: userId });
+  const profile = await Profile.findById(profileId);
   if (!profile) {
     throw new AppError("Profile not found", 404);
   }
@@ -65,6 +62,8 @@ const craeteProfile = catchAsync(async (req, res) => {
   );
 
   profile.isDiscoverable = true;
+    const p = await syncProfile(profile)
+
   await profile.save();
  
   return res.status(200).json({
